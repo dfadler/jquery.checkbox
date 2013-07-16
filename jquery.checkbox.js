@@ -1,6 +1,11 @@
 (function($, window, undefined) {
 
-    var defaults = {},
+    var defaults = {
+            events: {
+                click: true,
+                change: true
+            }
+        },
 
         Checkbox = function(element, options) {
             this.options = $.extend(defaults, options);
@@ -16,8 +21,14 @@
         },
 
         bind: function() {
-            this.$customCheckbox.on('change', this.toggleCheckbox);
-            this.$customCheckbox.on('click', {context: this}, this.toggleClass);
+            if(this.options.events.click) {
+                this.$customCheckbox.on('click', {context: this}, this.toggleClass);
+            }
+
+            if(this.options.events.change) {
+                this.$customCheckbox.on('change', this.toggleCheckbox);                
+            }
+            
         },
 
         init: function() {
